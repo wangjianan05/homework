@@ -1,0 +1,433 @@
+body{
+    min-width:1430px;
+    /*min-height:650px;*/
+}
+header{
+    background-color: #0e3244;
+    height:50px;
+}
+header h3{
+    padding:10px 0px 8px 10px;
+    width:330px;
+    display: inline-block;
+    color:#fff;
+    background-color:#1a4a6b;
+    margin:0px;
+}
+header>div{
+    float:right;
+}
+header>div>button{
+    height:50px;
+    width:110px;
+    margin:0;
+    border-radius: 0px !important;
+    border-color: rgba(0,0,0,0) !important;
+    color:#fff;
+    float:right;
+}
+header>div>.btn-gray{
+    background-color: #0e3244;
+}
+header>div>button:hover{
+    background-color: #0b232f !important;
+    color:#fff !important;
+}
+.searchBox{
+    height:75px;
+    background:#ececec;
+    width:100%;
+}
+.searchUl{
+    padding-top:14px;
+    padding-left:10px;
+}
+.searchUl>li{
+    float:left;
+    margin-left:15px;
+}
+.input-parent{
+    display:inline-block;
+}
+.input-parent>input{
+    padding-left: 10px;
+    width: 140px;
+    height:30px;
+}
+.beatpicker-clear{
+    background:#4b588c;
+    color:#fff;
+    border:none;
+    height: 30px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.search{
+    width:40px;
+    background:#4480bb;
+    border:none;
+    height:30px;
+    color:#fff;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.searchUl>li>input{
+    height:30px;
+    width:100px;
+}
+#tt{
+    width:100%;
+}
+.datagrid-row:nth-child(2n){
+    background:#EFEEEC;
+}
+#selectbox,#changePwd{
+    width:320px;
+    height:350px;
+    margin:10px auto;
+}
+#selectbox>ul,#changePwd>ul{
+    width:100%;
+}
+#selectbox>ul>li,#changePwd>ul>li{
+    width:100%;
+    height:40px;
+}
+.datagrid-header{
+    height:40px !important;
+}
+#selectbox span,#changePwd span{
+    display:inline-block;
+    width:85px;
+}
+.year,.name,#constractNumber{
+    width:175px;
+    height:30px;
+    padding-left:10px;
+    border:1px solid #cabcbc;
+}
+.md-trigger{
+    margin-top: 19px;
+    display: block;
+}
+.loginBg{
+   /* background-image: url("../img/bg.png");
+    background-size: cover;
+    background-repeat: no-repeat;*/
+}
+.loginBox{
+    width:30%;
+    margin:0px auto;
+    height:300px;
+    border:1px solid rgba(0,0,0,0);
+}
+.logo>div,.logo>p{
+    text-align:center;
+}
+.logo img{
+    width:30%;
+}
+.logo>p{
+    color:#D9E9FF;
+    font-size:18px;
+}
+.logo{
+    height:35%;
+}
+.logoImg{
+    margin-top:10%;
+    height:50%;
+}
+.loginBox ul{
+    width: 70%;
+    margin-left: 15%;
+}
+.loginBox ul>li{
+    margin-top:20px;
+}
+.loginBth{
+    width: 50%;
+    margin: 40px auto;
+    display: block;
+}
+.regUl>li>span{
+    color:#fff;
+}
+.manager{
+    width: 80px;
+    margin-left: 84px;
+    display: none;
+    position: absolute;
+    right: 100px;
+    top: 50px;
+}
+.manager>li{
+    height:30px;
+    text-align: center;
+    background: #395ba0;
+    color:#fff;
+    line-height:30px;
+    cursor: pointer;
+}
+.manager>li a{
+    color:#fff;
+}
+.searchUl select{
+    height:25px;
+    width: 110px;
+}
+.beatpicker li.cell {
+    width: 30px;
+}
+.open>.dropdown-toggle.btn-default:hover{
+    background-color: #0b232f !important;
+    color:#fff;
+}
+#changeBox{
+    width:1000px;
+    margin:30px auto;
+}
+#changeBox .input-group-addon{
+    width:100px;
+}
+#changeBox .input-group{
+    padding-top: 10px;
+    width: 100%;
+}
+#changeBox .beatpicker-input{
+    width: 260px;
+    height: 35px;
+    border: 1px solid #ccc;
+}
+#changeBox .beatpicker-clear{
+    height:35px;
+}
+#changeBox select{
+    width: 300px;
+    height: 35px;
+    border: 1px solid #ccc;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+#changeBox .submit,#changeBox .back{
+    margin-left:130px;
+    margin-top:50px;
+    width:100px;
+}
+.contractHeader{
+    height: 50px;
+    background: #ececec;
+    width: 100%;
+}
+.contractHeader .ulLeft li,.contractHeader .ulRight li{
+    float:left;
+    height:50px;
+    width:110px;
+    line-height:50px;
+    color:#1db8c1;
+    text-align:center;
+    cursor: pointer;
+    font-size:16px;
+}
+.contractHeader .ulRight li .input-parent>input{
+    width:115px;
+}
+.contractHeader .ulRight{
+    display:inline-block;
+    float: right;
+    margin-bottom: 0px;
+}
+.contractHeader .ulRight li{
+    width:170px;
+    color:#333;
+    text-align:left;
+
+}
+.contractHeader .ulRight li .beatpicker-clear,.contractHeader .ulRight li .search {
+    line-height: 30px;
+}
+.contractHeader .ulRight li>input{
+    width:120px;
+    height:30px;
+    line-height:30px;
+    padding-left: 10px;
+
+}
+.contractHeader .ulLeft li:hover{
+    color: #17ACF5;
+    font-size:20px;
+}
+.downModel{
+    width:400px;
+    height:50px;
+    position:absolute;
+    left:440px;
+    top:0px;
+    z-index:999;
+    padding-top:10px;
+    display:none;
+    background: #cae6f5;
+}
+.downModel .save,.downModel .back{
+    width:80px;
+    color:#fff;
+    background:#17ACF5;
+    height:30px;
+    border:none;
+    line-height:30px;
+    border-radius:5px;
+}
+.btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default:active.focus, .btn-default:active:focus, .btn-default:active:hover, .open>.dropdown-toggle.btn-default.focus, .open>.dropdown-toggle.btn-default:focus, .open>.dropdown-toggle.btn-default:hover{
+    color:#fff;
+}
+.downModel .back{
+    background:#e9bb2f;
+}
+.select{position:relative;width:134px;min-width:134px;height:30px;border:1px solid #eee;cursor:pointer;background: #fff;}
+.select:after{content:"";position:absolute;top:50%;right:10px;margin-top:-2px;border-top:5px solid #666;border-right:5px solid transparent;border-left:5px solid transparent;}
+.select .select_text{padding:0 20px 0 10px;height:30px;line-height:30px;}
+.select_ul{display:none;z-index: 999;position:absolute;top:30px;left:-1px;width:134px;min-width:134px;border:1px solid #D4D4D4;border-bottom-right-radius:3px;border-bottom-left-radius:3px;background:#fff;}
+.select_ul li{line-height:36px;text-indent:10px;}
+.select_ul li:hover{color:#fff;background:#6AA7EA;}
+.select_ul li.cur{color:#fff;background:#195DA3;}
+.tableConM thead td{
+    height:40px;
+    line-height:40px;
+    font-size:17px;
+    text-align:center;
+    background-color: #F3F3F3;
+    color: black;
+    font-weight: bold;
+    border: 1px solid #babad0;
+}
+.tableConM tbody td{
+    height:40px;
+    line-height:40px;
+    font-size:14px;
+    text-align:center;
+    color: black;
+    border: 1px dotted #d5d5e0;
+}
+.tableConM tbody tr:nth-child(even) td{
+    background-color: #edeef3;
+}
+.tableConM tbody tr:nth-child(odd) td{
+    background-color: #fff;
+}
+#changeBox .leftBox,#changeBox .centerBox{
+    width:350px;
+    float:left;
+    font-size:18px;
+}
+#changeBox .centerBox{
+    width:650px;
+}
+#changeBox .leftBox span:last-child{
+    font-size: 15px;
+    color: #a09a9a;
+    display: inline-block;
+    width:50px;
+    text-align: center;
+}
+#changeBox .leftBox li,.appendLi li{
+    font-size: 18px;
+    color: #e68043;
+    height: 30px;
+    line-height: 30px;
+    font-weight: 700;
+    padding-left: 50px;
+}
+#changeBox .centerBox .btn-group{
+    width:300px;
+}
+.appendLi li{
+    color:#00CCFF !important;
+}
+.searchUl .modelSum,.searchUl .proSum,.searchUl .contractNumber,.searchUl .contractName,.searchUl .orderAddress{
+    font-size:25px;
+    font-weight: bold;
+}
+.searchUl .modelSum{
+    color:#3ab1a1;
+}
+.searchUl .proSum{
+    color:#589bcc;
+}
+.searchUl .contractNumber,.searchUl .contractName,.searchUl .orderAddress{
+    color:#2e3435;
+}
+.subico01 #change{
+    width:300px;
+    margin-left:20px;
+}
+.subico01 #change li{
+    width:50px;
+    height:30px;
+    line-height: 30px;
+    float: left;
+    text-align: center;
+    background: #fff;
+    border:1px solid #4f99bb;
+    font-weight: bold;
+    cursor: pointer;
+}
+#date_select_div input{
+    text-align: center;
+    width: 200px;
+    height: 30px;
+}
+.current{
+    color:#fff;
+    background: #61b8ce !important;
+}
+#date_select_div #left,#date_select_div #right{
+    cursor: pointer;
+}
+.footerP{
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    color: #b9b7b7;
+}
+.btn-group-sm>.btn, .btn-sm {
+    padding: 4px 10px;
+}
+.glyphicon-asterisk{
+    font-size: 10px;
+    color: #e2411a;
+    margin-left: 10px;
+    width:50px !important;
+}
+.getPwdBox{
+    width:600px;
+    height:400px;
+    margin:20px auto;
+    position: relative;
+}
+.sureLoginName{
+    width:100px;
+    margin:50px auto;
+    display: block;
+}
+.part1,.part2,.part3,.part4{
+    margin-top:50px;
+}
+.getPwdBox>ul{
+    width:100%;
+    position: absolute;
+    top:0;
+    left:0;
+
+}
+.getPwdBox>ul>li{
+    display: inline-block;
+    height:100px;
+    text-align: center;
+    line-height: 100px;
+    color:#fff;
+    font-size: 16px;
+}
+.dn{
+    display:none;
+}
