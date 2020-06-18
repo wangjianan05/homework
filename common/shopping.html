@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>流量告警</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel=stylesheet type="text/css" href="../css/normalize.css" />
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel=stylesheet type="text/css" href="../css/layout.css" />
+</head>
+</head>
+<style>
+    #tt{
+        margin-top:20px;
+    }
+    li{
+        float:left;
+        width:20%;
+        margin-left:20px;
+        box-shadow: 0px 0px 0.417vw 0px rgba(196,204,214,0.31)
+    }
+    li img{
+        width:100%;
+        height:200px;
+    }
+    .goods_name{
+        color:rgb(74, 74, 74);
+        font-size:14px;
+        line-height:30px;
+    }
+    .price{
+        color:rgb(234, 0, 65);
+        font-size:20px;
+        line-height:50px;
+        position: relative;
+        overflow: hidden;
+    }
+    .box{
+        padding:10px;
+        
+    }
+    .glyphicon-trash{
+        float:right;
+        color:#bfbfbf;
+        font-size:14px;
+        cursor: pointer;
+    }
+</style>
+<body>
+<div class="searchBox">
+    <ul class="searchUl clearfix">
+        <li>
+          <button class="md-trigger btn btn-primary btn-sm addModel" onclick="addModel()">添加商品</button>
+      </li>
+    </ul>
+</div>
+<div>
+    <ul id="tt">
+    </ul>
+</div>
+<div class="modal fade" id="modalShow" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">提示</h4>
+        </div>
+        <div class="modal-body">
+          <p>是否确定删除该件商品？</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary">确定</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+<!--添加模块框-->
+<div class="modal fade" id="myModalModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">添加商品</h4>
+          </div>
+          <div class="modal-body">
+              <div class="form-group">
+                  <label for="name">商品名称:</label>
+                  <input type="text" class="form-control" id="name" placeholder="" maxlength="20">
+              </div>
+              <div class="form-group">
+                <label for="address">商品单价:</label>
+                <input type="text" class="form-control" id="unit" placeholder="" maxlength="8">
+              </div>
+              <div class="form-group">
+                  <label for="password">商品描述:</label>
+                  <input type="textarea" class="form-control" id="description" placeholder="" maxlength="50">
+              </div>
+              <div class="form-group">
+                  <label for="checkPassword">图片地址:</label>
+                  <input type="text" class="form-control" id="photo" maxlength="20">
+              </div>
+              <div class="form-group">
+                  <label for="email">商品类型:</label>
+                  <select class="form-control" id="typeId">
+                      <option value="1">服装</option>
+                      <option value="2">电子产品</option>
+                      <option value="3">食品</option>
+                      <option value="4">其他</option>
+                  </select>
+              </div>
+              <div class="form-group">
+                  <label for="address">库存:</label>
+                  <input type="text" class="form-control" id="number" placeholder="" maxlength="5">
+              </div>
+              <div class="form-group">
+                  <p class="warning" style="color:red"></p>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+              <button type="button" class="btn btn-primary" onclick="addModelBtn()">确定</button>
+          </div>
+      </div>
+  </div>
+</div>
+</body>
+</html>
+<script src="../js/jquery.min.js"></script>
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+<script src="../js/url.js"></script>
+<script>
+    /*获取key和name*/
+    function resizeGrid(){
+        var listheight=document.body.clientHeight-90;
+        $('#tt').height(listheight)
+    }
+    /*添加模块模态框*/
+    function addModel(){
+        $('#myModalModel').modal('show');
+    }
+    function addModelBtn(){
+        var name=$("#name").val();
+        var unit=$("#unit").val();
+        var description=$("#description").val();
+        var typeId=$("#typeId").val();
+        var number=$("#number").val();
+        var photo=$("#photo").val();
+        var data={name:name,unit:unit,description:description,typeId:typeId,number:number,photo:photo}
+        data=JSON.stringify(data);
+        $.ajax({
+            type : "Post",
+            url : addUrl,
+            data:data,
+            contentType: 'application/json',
+            dataType : "json",
+            // crossDomain:true,
+            beforeSend:function(){
+              var regName= /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/
+              var regNum= /^[0-9]+$/
+
+              if(!regName.test(name)){
+                $(".warning").html("商品名为中英文数字下划线的组合");
+                return false;
+              } else if(!regNum.test(unit)||unit<0){
+                  $(".warning").html("商品单价为大于0的整数");
+                  return false;
+              } else if(description === ''){
+                  $(".warning").html("描述不能为空");
+                  return false;
+              } else if(photo === ''){
+                  $(".warning").html("图片地址不能为空");
+                  return false;
+              }  else if(!regNum.test(number)){
+                  $(".warning").html("库存为整数");
+                  return false;
+              } else {
+                $(".warning").html("");
+              }
+            },
+            success : function(data) {
+                console.log(data);
+                /*登录成功*/
+                if(data.code==0){
+                    window.location.href="./index.html";
+                }else{
+                    $(".warning").html(data.desc);
+                }
+
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+                $(".warning").html("网络异常，请刷新后重试！");
+                console.log(XMLHttpRequest.status,XMLHttpRequest.readyState,textStatus)
+            },
+            complete:function(){
+            }
+        });
+    }
+    function showLog(){
+        $.ajax({
+            type: "get",
+            async: false,
+            contentType:'application/json',
+            // url: goodsList,
+            url:'../data/order.json',
+            dataType : "json",
+            success: function(data){
+                console.log(data)
+                if(data.code==0){
+                    var content = ''
+                    data.data.forEach(element => {
+                        content += "<li>"
+                            content += "<img src='"+element.photo+"'>"
+                            content += "<div class='box'>"
+                                content += "<div class='goods_name'>"+element.name+"</div>"
+                                content += '<div class="price">¥ '+element.unit+'<span class="glyphicon glyphicon-trash" onclick="deleteGoods(\'' + element.id + '\')"></span></div>'
+                                // content += "<div class='price'>¥ "+element.unit+"<span class='glyphicon glyphicon-trash' onclick='deleteGoods('"+element+"')'></span></div>"
+                            content += "</div></li>"    
+                    });
+                    $("#tt").append(content)
+                }
+            },
+            error: function(xhr){
+                error(xhr.responseText);
+            }
+        });
+    }
+    function deleteGoods(val){
+        console.log(val)
+        $('#modalShow').modal('show');
+        
+    }
+    $(document).ready(function() {
+        showLog();
+    });
+    $(window).resize(function(){
+        resizeGrid();
+    });
+
+</script>

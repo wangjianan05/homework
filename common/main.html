@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>作业</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel=stylesheet type="text/css" href="../css/normalize.css" />
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel=stylesheet type="text/css" href="../css/layout.css" />
+</head>
+<style>
+    .btn-group>.btn:first-child{
+        height:50px;
+        background-color: #0e3244;
+        color:#fff;
+        border: none;
+    }
+    .dropdown-menu li a{
+        line-height: 40px;
+    }
+    .dropdown-menu{
+        min-width:115px;
+    }
+    .dn{
+        display: none;
+    }
+    .modal-body .input-group{
+        margin-top:10px;
+    }
+    #flowNum{
+        color:red;
+        background: #fff;
+    }
+</style>
+<body style="min-height:650px;">
+    <!--修改密码模态框-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">修改密码</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- <div class="input-group has-feedback form-group">
+                       <span class="input-group-addon" id="basic-addon1">原密码:</span>
+                       <input type="text" class="form-control" aria-describedby="basic-addon1" id="passOld" >
+                   </div> -->
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon2">新密码:</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" id="passNew1">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon3">确认新密码:</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" id="passNew2">
+                    </div>
+                    <div style="color:red;" class="warning"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="changePwd()" id="modalsure">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--普通提示框-->
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="alert">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">提示信息</h4>
+                </div>
+                <div id="alertInformain" class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--成功提示框-->
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="alertSuccess">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">提示信息</h4>
+                </div>
+                <div id="alertInforSuc" class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="reloadUrl()">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <header>
+        <h3>作业-订单系统</h3>
+        <div class="clearfix">
+            <button type="button" class="btn btn-gray" onclick="logOut()"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> 退出</button>
+            <div class="btn-group" style="float:right;">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <span id="account">管理员</span> <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                  <li><a href="#" onclick="goChangePwd()">密码修改</a></li>
+              </ul>
+            </div>
+            <button type="button" class="btn btn-gray user" onclick="goShopping()"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> 商品管理</button>
+        </div>
+    </header>
+    <div id="container">
+
+    </div>
+</body>
+</html>
+<script src="../js/jquery.min.js"></script>
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+<script src="../js/url.js"></script>
+<script type="text/javascript">
+    /*获取key和name*/
+    var key = sessionStorage.getItem("key");
+    var userName = sessionStorage.getItem("userName");
+
+    $("#account").html(userName);
+    //-------------加载内容---------------
+    function loadContent(curContainer, url, type,method) {
+        $("#loading_type").val(type);
+        if(url.indexOf("?")>-1){
+            url=url+"&rnd="+Math.random();
+        }else{
+            url=url+"?rnd="+Math.random();
+        }
+        if(type == "ajax") {
+            $.ajax({
+                type: method,
+                url: url,
+                data: {},
+                success: function(result) {
+                    $('#' + curContainer).html(result);
+                    readyinit();
+                },
+                beforeSend: function() {
+                    $('#' + curContainer).empty();
+                }
+            });
+        }else{
+            var ifurl = "<iframe src='"+url+"' id='mainFrame' name='mainFrame' onLoad='iFrameHeight()' frameborder='0' width='100%'  scrolling='auto' style='overflow:auto'> </iframe>";
+            $('#' + curContainer).html(ifurl);
+        }
+    }
+    //ifame自适应高度,被包含的页面，内部有影响页面长度的要在页面中完成操作好再次调用这个方法。如:parent.iFrameHeight();
+    function iFrameHeight() {
+        var iframe=document.body.offsetHeight-55;
+        $("#mainFrame").css("height",iframe);
+    }
+    iFrameHeight();
+    /*退出按钮*/
+    function logOut(){
+      window.location.href="../index.html";
+        // var data={"data":{login_name:userName},key:key};
+        // data=JSON.stringify(data);
+        // $.ajax({
+        //     type : "Post",
+        //     url :logoutUrl,
+        //     data:data,
+        //     dataType : "json",
+        //     contentType:"application/json",
+        //     beforeSend:function(){
+        //     },
+        //     success : function(data) {
+        //         if(data.error_code==0){
+        //             sessionStorage.removeItem("key");
+        //             sessionStorage.removeItem("userName");
+        //             window.location.href="../index.html";
+        //             console.log(data);
+        //         }
+        //         else if(data.error_code==10001){
+        //             getAlertS("系统错误");
+        //             window.location.href="../index.html";
+        //         }
+        //         else if(data.error_code==99999){
+        //             alert("登录超时");
+        //             window.location.href="../index.html";
+        //         }
+        //     },
+        //     error:function(XMLHttpRequest, textStatus, errorThrown){
+        //         getAlert("退出异常，请刷新后重试！");
+        //         window.location.href="../login/login.html";
+        //         console.log(XMLHttpRequest.status,XMLHttpRequest.readyState,textStatus)
+        //     }
+        // })
+
+    }
+    function goChangePwd(){
+        $('#myModal').modal('show');
+    }
+    function goShopping(){
+        loadContent("container","shopping.html","iframe","post");
+    }
+    $(document).ready(function(){
+      goShopping();
+      iFrameHeight();
+
+
+    });
+    $(window).resize(function(){
+        iFrameHeight();
+    })
+    /*按钮点击提示*/
+    $("header>div>button").click(function(){
+        $("header>div>button").css({background:'#0e3244',color:'#fff'});
+        $(".btn-group>button").css({background:'#0e3244',color:'#fff'});
+        $(this).css("background","#000");
+        $(this).css("color","#20DCF1");
+    })
+    $(".btn-group>button").click(function(){
+        $(".btn-gray").css({background:'#0e3244',color:'#fff'});
+        $(".btn-group>button").css({background:'#0e3244',color:'#fff'});
+        $(this).css("background","#000");
+        $(this).css("color","#20DCF1");
+    })
+    /*修改密码*/
+    function changePwd(){
+        var passwordNew1=$("#passNew1").val().toUpperCase();
+        var passwordNew2=$("#passNew2").val().toUpperCase();
+        var data={id: sessionStorage.getItem("id"),password:passwordNew1};
+        data=JSON.stringify(data);
+        $.ajax({
+            type : "Post",
+            url : changePwdUrl,
+            data:data,
+            dataType : "json",
+            contentType:"application/json",
+            beforeSend:function(){
+              var regPwd= /^[A-Za-z0-9]+$/
+              if(!regPwd.test(passwordNew1)){
+                  $(".warning").html("密码为英文和数字的组合");
+                  return false;
+              } 
+              else if($("#passNew1").val()!=$("#passNew2").val()){
+                  $(".warning").html("两次输入密码不一致");
+                  return false;
+              } else {
+                $(".warning").html("");
+              }
+            },
+            success:function(data){
+                if(data.code==0){
+                    getAlertS("密码修改成功！");
+                } else {
+                    getAlert(data.desc);
+                }
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+                getAlert("网络出错！");
+                console.log(XMLHttpRequest.status,XMLHttpRequest.readyState,textStatus)
+            }
+        })
+    }
+</script>
